@@ -1,0 +1,31 @@
+
+
+2020-04-16 16:08:49
+Log file opened
+
+2020-04-16 16:08:50
+Configuration read
+
+2020-04-16 16:08:50
+Database opened
+
+2020-04-16 16:08:50
+Previous state read from database
+
+2020-04-16 16:08:50
+Starting API
+
+2020-04-16 16:09:36
+Remove Subscriber:
+	Request contents read
+	Subscriber does not exist -> Error response sent
+
+2020-04-16 16:09:39
+Add Subscriber:
+	Request contents read
+	System state updated: 1 subscribers
+	Response sent
+
+2020-04-16 16:09:41
+Add Subscriber:
+	Maximum subscriber count already reached -> Error response sent
