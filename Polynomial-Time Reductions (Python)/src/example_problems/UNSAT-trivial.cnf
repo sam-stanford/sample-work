@@ -1,0 +1,6 @@
+c This is a simple SAT problem which is trivially unsatisfiable
+p cnf 2 2
+-1 2 0
+1 -2 0
+-1 -2 0
+1 2 0
