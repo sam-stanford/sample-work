@@ -1,0 +1,536 @@
+import asyncio
+
+import pygame
+import subprocess
+import os
+import time
+# from UIOptions import *
+
+from GameConnector import stream_read_json2
+
+# window and run options
+WIDTH = 1200
+HEIGHT = 900
+FPS = 240
+# CARD_WIDTH =
+
+# colours
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+D_GREEN = (50, 205, 50)
+BLUE = (0, 0, 255)
+GOLD = (255, 215, 0)
+GREY = (220, 220, 220)
+L_BLUE = (173, 216, 230)
+
+# aesthetics
+GAME_TITLE = "Ace's Seven"
+
+# positional details
+centreHand = (WIDTH / 2, HEIGHT - 50)
+raisedHand = (WIDTH / 2, HEIGHT - 80)
+
+# set up asset paths
+game_folder = os.path.dirname(__file__)
+
+res_folder = os.path.join(game_folder, "res")
+img_folder = os.path.join(res_folder, "img")
+card_folder = os.path.join(img_folder, "cards")
+font_folder = os.path.join(res_folder, "fonts")
+<<<<<<< HEAD
+=======
+music_folder = os.path.join(res_folder, "music")
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+
+# potentially add custom font data to this later
+default_font = pygame.font.match_font('arial')
+casino_font = "casino.ttf"
+
+# broad utility functions
+def draw_text(surface, text, size, x, y, font_type, colour):
+# TODO: add font and colour choice later
+    font = pygame.font.Font(os.path.join(font_folder, font_type), size)
+    text_surface = font.render(text, True, colour)
+    text_rect = text_surface.get_rect()
+    text_rect.center = (x, y)
+    surface.blit(text_surface, text_rect)
+
+
+class Card(pygame.sprite.Sprite):
+    # Card sprite
+    def __init__(self, card_name):
+
+        pygame.sprite.Sprite.__init__(self)
+
+        self.name = card_name
+        self.image = pygame.image.load(os.path.join(card_folder, card_name + ".png")).convert()
+        # self.image.set_colorkey(RED)
+        self.rect = self.image.get_rect()
+        self.rect.midbottom = centreHand
+
+
+        self.LiveCard = True
+
+        self.start_x = 0
+        self.start_y = 0
+
+        self.pos_x = 0
+        self.pos_y = 0
+
+    def update(self):
+        if self.LiveCard:
+            if self.rect.collidepoint(pygame.mouse.get_pos()):
+                self.rect.midbottom = (self.start_x, self.start_y - 30)
+            elif not self.rect.collidepoint(pygame.mouse.get_pos()):
+                self.rect.midbottom = (self.start_x, self.start_y)
+        else:
+            self.rect.midbottom = (self.start_x, self.start_y)
+
+        self.pos_x = self.rect.x
+        self.pos_y = self.rect.y
+
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+class Player_Hand:
+    def __init__(self):
+        self.hand = []
+        self.hand_sprites = pygame.sprite.Group()
+        self.hand_buffered = False
+
+    def add_to_hand(self, card):
+        self.hand.append(card)
+        self.hand_sprites.add(card)
+
+    def remove_from_hand(self, card):
+        self.hand.remove(card)
+        self.hand_sprites.remove(card)
+
+    def buffer_hand(self, player_hand):
+        i = 1.5
+        for card in player_hand.hand:
+            card.start_x = (i * 135)
+            card.start_y = 800
+            i += 1
+
+        self.hand_buffered = True
+
+    def update_with_game_state(self, game_state):
+        """
+        Updates the hand to show the current players hand from game state
+        :param game_state:
+        :return:
+        """
+        self.hand = []
+        self.hand_sprites.empty()
+        self.hand_buffered = False
+
+        cards_names = game_state["cards_in_hand"]
+        for card_name in cards_names:
+            self.add_to_hand(Card(card_name))
+
+
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+class Table_Pile:
+    def __init__(self):
+        self.table_sprites = pygame.sprite.GroupSingle()
+
+    def play_card(self, card):
+        self.table_card = card
+        self.table_card.LiveCard = False
+        self.table_card.start_x = 400
+        self.table_card.start_y = 400
+        self.table_sprites.add(card)
+
+    def update_with_game_state(self, game_state):
+        """
+        Updates the top card in the pile from gameState.
+        :param game_state:
+        :return:
+        """
+        played_cards = game_state["cards_played"]
+        try:
+            top_card = played_cards[len(played_cards)-1]
+            top_card_instance = Card(top_card)
+            self.play_card(top_card_instance)
+        except:
+            pass
+
+
+<<<<<<< HEAD
+
+
+class HUD:
+    def __init__(self, pos=(400, 500)):
+=======
+class HUD:
+    def __init__(self, pos=(600, 215)):
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+        self.pos = pos
+        self.current_player = 0
+        self.follow_suit = ""
+        self.trump_suit = ""
+
+<<<<<<< HEAD
+    def draw(self, screen, font):
+=======
+    def draw(self, screen, font_type):
+
+        font = pygame.font.Font(os.path.join(font_folder, font_type), 48)
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+        rend_player = font.render("Player " + str(self.current_player) + "'s turn", True, GOLD)
+        screen.blit(rend_player, (self.pos[0], self.pos[1]))
+
+        rend_follow_suit = font.render("Follow suit: " + self.follow_suit, True, GOLD)
+<<<<<<< HEAD
+        screen.blit(rend_follow_suit, (self.pos[0], self.pos[1]+20))
+
+        rend_trump_suit = font.render("Trump suit: " + self.trump_suit, True, GOLD)
+        screen.blit(rend_trump_suit, (self.pos[0], self.pos[1]+40))
+=======
+        screen.blit(rend_follow_suit, (self.pos[0], self.pos[1]+52))
+
+        rend_trump_suit = font.render("Trump suit: " + self.trump_suit, True, GOLD)
+        screen.blit(rend_trump_suit, (self.pos[0], self.pos[1]+104))
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+
+    def update_with_game_state(self, game_state):
+        self.current_player = game_state["player_to_go"]
+        self.follow_suit = game_state["follow_suit"]
+        self.trump_suit = game_state["trump_suit"]
+
+
+
+class Message_Displayer:
+<<<<<<< HEAD
+    def __init__(self, screen):
+        self.font = pygame.font.Font(os.path.join(font_folder, casino_font), 30)
+        self.screen = screen
+        self.startTime = 0
+        self.time = 5
+        self.text = ""
+
+    def buffer_message(self, text, colour):
+        self.text = text
+        self.screen_text = self.font.render(self.text, True, colour)
+        self.startTime = time.time()
+
+    def update(self):
+=======
+    def __init__(self, font_name, time=3, pos=(5,5)):
+        self.font = pygame.font.Font(os.path.join(font_folder, font_name), 48)
+        self.time = time
+        self.startTime = 0
+        self.pos = pos
+
+        self.text = ""
+
+    def display_message(self, msgstr):
+        """
+        Display message string to screen.
+        :param msgstr:
+        :param screen:
+        :return:
+        """
+        self.text = msgstr
+        self.startTime = time.time()
+
+    def update(self, screen):
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+        if self.text != "":
+            elapsedTime = time.time() - self.startTime
+            # If time to show message is done then reset
+            if (elapsedTime >= self.time):
+                self.text = ""
+<<<<<<< HEAD
+                print("hit it")
+            else:
+                render = self.screen_text
+                # Adds a nice fade out effect
+                render.set_alpha(255 - ((elapsedTime / self.time) * 255))
+
+                self.screen.blit(render, (10, 10))
+=======
+            else:
+                rend = self.font.render(self.text, False, GOLD)
+
+                # Adds a nice fade out effect
+                rend.set_alpha(255-((elapsedTime/self.time)*255))
+
+                screen.blit(rend, self.pos)
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+    # TODO: test this once asyncio is set up - it may work with this
+
+
+class Button:
+    def __init__(self, surface, colour, active_colour, pos_x, pos_y, x_dem, y_dem,):
+        self.surface = surface
+        self.x_dem = x_dem
+        self.y_dem = y_dem
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.colour = colour
+        self.active_colour = active_colour
+
+    def draw_button(self):
+        cur = pygame.mouse.get_pos()
+        if self.pos_x + self.x_dem > cur[0] > self.pos_x and self.pos_y + self.y_dem > cur[1] > self.pos_y:
+            pygame.draw.rect(self.surface, self.active_colour, (self.pos_x, self.pos_y, self.x_dem, self.y_dem))
+        else:
+            pygame.draw.rect(self.surface, self.colour, (self.pos_x, self.pos_y, self.x_dem, self.y_dem))
+
+    def text_to_button(self, text, colour, size):
+         draw_text(self.surface, text, size, (self.pos_x + (self.x_dem/2)), (self.pos_y + (self.y_dem/2)), casino_font, colour)
+
+
+class Game:
+    def __init__(self):
+        # intialize window (and maybe sprites?)
+        pygame.init()
+        pygame.mixer.init()
+        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption(GAME_TITLE)
+        self.clock = pygame.time.Clock()
+        self.player_hand = Player_Hand()
+        self.table_pile = Table_Pile()
+<<<<<<< HEAD
+        self.message_displayer = Message_Displayer(self.screen)
+        self.hud = HUD()
+
+=======
+        self.message_displayer = Message_Displayer(casino_font)
+        self.hud = HUD()
+
+
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+        self.running = True
+        self.paused = False
+        self.start_screen = True
+
+        self.current_request = ""
+        self.game_in_pipe = None
+
+    async def new(self):
+        self.deck_sprites = pygame.sprite.Group()
+
+        self.instanceCards()
+
+<<<<<<< HEAD
+        await self.run()
+=======
+        await self.run("dicks")
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+
+    def instanceCards(self):
+        # create card assets
+        files = os.listdir(card_folder)
+        for file in files:
+            if file.split(".")[1].strip() == "png":
+                self.deck_sprites.add(Card(file.split(".")[0]))
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+    def updateWithGameState(self, game_state):
+        """
+        Updates all the components of the game screen to display what it in the gameState.
+        :param game_state: JSON object received from the game pipe.
+        :return:
+        """
+        self.table_pile.update_with_game_state(game_state)
+        self.player_hand.update_with_game_state(game_state)
+        self.hud.update_with_game_state(game_state)
+<<<<<<< HEAD
+        # self.message_displayer.displayMessage("Go Player " + str(game_state["player_to_go"]) + "!")
+
+    async def run(self):
+        # game loop
+        self.playing = True
+
+        # Setup the game process
+        gameProcess = await asyncio.create_subprocess_exec("java", "-jar",
+                                                           "../target/project-code-1.0-jar-with-dependencies.jar",
+                                                           "../games/one_trick_pony.json", stdin=subprocess.PIPE,
+=======
+        self.message_displayer.display_message("Go Player " + str(game_state["player_to_go"]) + "!")
+
+    async def run(self, game_name):
+        # game loop
+        self.playing = True
+
+        game_name = "one_trick_pony.json"
+        folder_front = "../games/"
+        game_location = folder_front + game_name
+
+        # Setup the game process
+        gameProcess = await asyncio.create_subprocess_exec("java", "-jar",
+                                                           "../target/project-code-1.0-jar-with-dependencies.jar",
+                                                           game_location, stdin=subprocess.PIPE,
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+                                                           stdout=subprocess.PIPE)
+        gameOutPipe = gameProcess.stdout
+        self.game_in_pipe = gameProcess.stdin
+        jsonGen = stream_read_json2(gameOutPipe)
+
+        # The first message from the game should always be game state
+        message = await jsonGen.__anext__()
+        if message["request_type"] == "sending_game_state":
+            self.updateWithGameState(message["game_state"])
+
+        # Stores the current request from game
+        self.current_request = ""
+
+        while self.playing:
+            self.clock.tick(FPS)
+            self.events()
+            self.update()
+            self.draw()
+
+            # Get a request from the game
+            if self.current_request == "":
+                request_body = await jsonGen.__anext__()
+
+                self.current_request = request_body["request_type"]
+                if self.current_request == "sending_game_state":
+                    self.updateWithGameState(request_body["game_state"])
+                    self.current_request = ""
+                elif self.current_request == "sending_trick_summary":
+                    pass
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+    def events(self):
+        # Process input (events)
+        cur = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            # check for window close
+            if event.type == pygame.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+            card_index = 0
+            for card in self.player_hand.hand:
+                if card.pos_x + card.rect.width > cur[0] > card.pos_x and card.pos_y + card.rect.height > cur[1] > card.pos_y:
+                    if event.type == pygame.MOUSEBUTTONUP and self.current_request == "card_move":
+                        # self.table_pile.play_card(card)
+                        # self.player_hand.remove_from_hand(card)
+
+                        msg = {"value": card_index}
+
+                        # Clear current request because we have dealt with it
+                        self.current_request = ""
+                        print(">" + str(msg))
+                        self.game_in_pipe.write(str(msg).encode())
+
+                card_index = card_index + 1
+
+
+    def update(self):
+        # update buffer from inputs
+        self.deck_sprites.update()
+        self.player_hand.hand_sprites.update()
+        self.table_pile.table_sprites.update()
+
+<<<<<<< HEAD
+        self.message_displayer.buffer_message("Testing the displayer!", BLACK)
+
+
+        # print(self.player_hand.hand[0].rect.width)
+
+=======
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+
+    def draw(self):
+        # draw from buffer
+        self.screen.fill(D_GREEN)
+        if not self.player_hand.hand_buffered:
+            self.player_hand.buffer_hand(self.player_hand)
+        self.player_hand.hand_sprites.draw(self.screen)
+        self.table_pile.table_sprites.draw(self.screen)
+
+<<<<<<< HEAD
+        self.message_displayer.update()
+=======
+        self.hud.draw(self.screen, default_font)
+        self.message_displayer.update(self.screen)
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+
+        pygame.display.update()
+
+    async def show_start_screen(self):
+        # start screen for game
+<<<<<<< HEAD
+=======
+        pygame.mixer.music.load(os.path.join(music_folder, "main_menu_music.ogg"))
+        pygame.mixer.music.play(-1, 0.0)
+
+>>>>>>> 32c9b6abb5e543b8d55c8a90d81459ce2060b6f1
+        while self.start_screen:
+            self.clock.tick(FPS)
+
+            cur = pygame.mouse.get_pos()
+            logo = pygame.image.load(os.path.join(img_folder, "aces7logo.png"))
+
+            start_button = Button(self.screen, WHITE, L_BLUE, WIDTH/2 - 100, HEIGHT/2 + 200, 200, 100)
+            self.screen.fill(D_GREEN)
+
+            self.screen.blit(logo, (WIDTH/2 - 150, HEIGHT/4 + 15))
+
+            draw_text(self.screen, "Welcome to...", 96, WIDTH/2, HEIGHT/4 - 100, casino_font, WHITE)
+
+            draw_text(self.screen, "Press start to begin", 44, WIDTH/2, HEIGHT/2 + 100, casino_font, WHITE)
+            start_button.draw_button()
+            start_button.text_to_button("Start", BLACK, 48)
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                if start_button.pos_x + start_button.x_dem > cur[0] > start_button.pos_x and start_button.pos_y + start_button.y_dem > cur[1] > start_button.pos_y:
+                    if event.type == pygame.MOUSEBUTTONUP:
+                        self.start_screen = False
+
+        await self.new()
+
+    def show_pause_screen(self):
+        pass
+
+    def show_end_screen(self):
+        pass
+
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    waiting = False
+                    self.running = False
+                if event.type == pygame.KEYUP:
+                    waiting = False
+
+async def main():
+    g = Game()
+    while g.running:
+        await g.show_start_screen()
+        g.show_end_screen()
+
+    pygame.quit()
+
+if __name__ == '__main__':
+    asyncio.run(main())
+
+

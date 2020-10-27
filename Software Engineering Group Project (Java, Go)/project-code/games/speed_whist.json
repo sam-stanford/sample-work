@@ -1,0 +1,24 @@
+{
+        "name" : "Speed Whist",
+        "description" : "Whist for those who \"ain't got time for that\"",
+        "players" : 4,
+        "initialHandSize": 3,
+        "minimumHandSize": 0,
+        "teams" : [[0, 2], [1, 3]],
+        "ascending_ordering": true,
+        "can_view_previous_trick" : true,
+        "rules" : [
+            {"name" : "leadingCardForEachTrick", "data" : "any"},
+            {"name" : "nextLegalCardMode", "data" : "trick"},
+            {"name" : "trumpPickingMode", "data" : "lastDealt"},
+            {"name" : "calculateScore", "data" : "tricksWon"},
+            {"name" : "trickThreshold", "data" : 0},
+            {"name" : "trickWinner", "data" : "standard"},
+            {"name" : "trickLeader", "data" : "prevWinner"},
+            {"name" : "handEnd", "data": "outOfCards"},
+            {"name" : "gameEnd", "data" : "handsPlayed"},
+            {"name" : "gameEndValue", "data" : 1},
+            {"name" : "sessionEnd", "data" : "gamesPlayed"},
+            {"name" : "sessionEndValue", "data" : 1}
+        ]
+}

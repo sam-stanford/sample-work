@@ -1,0 +1,25 @@
+{
+        "name" : "Speed Golf Whist",
+        "description" : "Put the putters down and lose your life to this shitty twist on classic Whist.",
+        "players" : 2,
+        "initialHandSize": 3,
+        "minimumHandSize": 0,
+        "teams" : [[0], [1]],
+        "ascending_ordering": true,
+        "can_view_previous_trick" : true,
+        "rules" : [
+            {"name" : "leadingCardForEachTrick", "data" : "any"},
+            {"name" : "nextLegalCardMode", "data" : "trick"},
+            {"name" : "trumpPickingMode", "data" : "lastDealt"},
+            {"name" : "calculateScore", "data" : "tricksWon"},
+            {"name" : "trickThreshold", "data" : 0},
+            {"name" : "trickWinner", "data" : "standard"},
+            {"name" : "trickLeader", "data" : "prevWinner"},
+            {"name" : "handEnd", "data": "outOfCards"},
+            {"name" : "gameEnd", "data" : "handsPlayed"},
+            {"name" : "gameEndValue", "data" : 3},
+            {"name" :  "scoring", "data" : "golf"},
+            {"name" : "sessionEnd", "data" : "gamesPlayed"},
+            {"name" : "sessionEndValue", "data" : 1}
+        ]
+}

@@ -1,0 +1,26 @@
+{
+    "name" : "Two Trick Pony",
+    "description" : "One trick not enough for you? Take on the RNG with 2 rounds, and an optional tie breaker!",
+    "players" : 2,
+    "numReruns":2,
+    "deck" : null,
+    "bid" : null,
+    "teams" : [[0], [1]],
+    "ascending_ordering": true,
+    "can_view_previous_trick" : true,
+    "initialHandSize" : 1,
+    "minimumHandSize" : 0,
+    "rules" : [
+        {"name" : "leadingCardForEachTrick", "data" : "any"},
+        {"name" : "nextLegalCardMode", "data" : "any"},
+        {"name" : "trumpPickingMode", "data" : "none"},
+        {"name" : "calculateScore", "data" : "tricksWon"},
+        {"name" : "trickThreshold", "data" : 0},
+        {"name" : "trickWinner", "data" : "standard"},
+        {"name" : "trickLeader", "data" : "prevWinner"},
+        {"name" : "sessionEnd", "data" : "bestOf"},
+        {"name" : "sessionEndValue", "data" : 2},
+        {"name" : "gameEnd", "data" : "handsPlayed"},
+        {"name" : "gameEndValue", "data" : 1}
+    ]
+}

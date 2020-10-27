@@ -1,0 +1,33 @@
+===============================================
+=============     NEW RULES     ===============
+===============================================
+
+Scoring rule for deciding how scoring works. "golf" means lower scores win - like golf! e.g. hearts requires fewer points.
+rule : "scoring"
+data : "standard", "golf"
+
+Card pass rule for deciding if any cards are passed at end of trick.
+rule : "cardPass"
+data : "none", "ascending", "descending"
+
+Number of cards to pass. Only valid if cardPass != null.
+rule : "cardPassNumber"
+data : int
+
+Indicates whether cards passed are chosen or not by player giving cards. Only valid if cardPass != null.
+rule : "cardPassChosen"
+data : "choose", "random"
+
+Indicates when cards are to be passed. Only valid if cardPass != null.
+rule : "cardPassTime"
+data : "turnStart", "trickStart", "roundStart"
+
+
+
+===============================================
+=============     SG ADDITIONS     ============
+===============================================
+
+SG rule to determine next card now accepts any
+rule : "nextLegalCardMode"
+data : "any", "trick"

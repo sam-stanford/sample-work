@@ -1,0 +1,23 @@
+{
+        "name" : "Two Player Whist",
+        "description" : "A classic trick taking game, now playable if you have fewer friends!",
+        "players" : 2,
+        "deck" : null,
+        "bid" : null,
+        "teams" : [[0], [1]],
+        "ascending_ordering": true,
+        "can_view_previous_trick" : true,
+        "initialHandSize" : 6,
+        "minimumHandSize" : 0,
+        "rules" : [
+            {"name" : "leadingCardForEachTrick", "data" : "any"},
+            {"name" : "nextLegalCardMode", "data" : "trick"},
+            {"name" : "trumpPickingMode", "data" : "lastDealt"},
+            {"name" : "calculateScore", "data" : "tricksWon"},
+            {"name" : "trickThreshold", "data" : 6},
+            {"name" : "trickWinner", "data" : "standard"},
+            {"name" : "trickLeader", "data" : "prevWinner"},
+            {"name" : "sessionEnd", "data" : "gamesPlayed"},
+            {"name" : "sessionEndValue", "data" : 1}
+        ]
+}

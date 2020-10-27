@@ -1,0 +1,26 @@
+{
+        "name" : "One Trick Pony",
+        "description" : "Show your friends who's boss by taking them on in this complete-and-utter-random, one-round card game!",
+        "players" : 2,
+        "deck" : null,
+        "bid" : null,
+        "teams" : [[0], [1]],
+        "ascending_ordering": true,
+        "can_view_previous_trick" : true,
+        "initialHandSize" : 1,
+        "minimumHandSize" : 0,
+        "rules" : [
+            {"name" : "leadingCardForEachTrick", "data" : "any"},
+            {"name" : "nextLegalCardMode", "data" : "any"},
+            {"name" : "trumpPickingMode", "data" : "none"},
+            {"name" : "calculateScore", "data" : "tricksWon"},
+            {"name" : "trickThreshold", "data" : 0},
+            {"name" : "trickWinner", "data" : "standard"},
+            {"name" : "gameEnd", "data" : "scoreThreshold"},
+            {"name" : "gameEndValue", "data" : 1},
+            {"name" : "handEnd", "data" : "outOfCards"},
+            {"name" : "sessionEnd", "data" : "gamesPlayed"},
+            {"name" : "sessionEndValue", "data" : 1}
+
+        ]
+}

@@ -1,0 +1,349 @@
+{
+  "name": "No-Pass Hearts",
+  "description": "Hate having to pass cards when playing Hearts? We hated developing that too!\nEnjoy our dumbed-down game to all your heart's content.",
+  "players": 4,
+  "deck": {
+    "cut": false,
+    "cards": [
+      {
+        "suit": "CLUBS",
+        "rank": "ACE",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "KING",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "QUEEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "JACK",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "TEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "NINE",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "EIGHT",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "SEVEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "SIX",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "FIVE",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "FOUR",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "THREE",
+        "pointValue": 0
+      },
+      {
+        "suit": "CLUBS",
+        "rank": "TWO",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "ACE",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "KING",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "QUEEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "JACK",
+        "pointValue": -11
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "TEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "NINE",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "EIGHT",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "SEVEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "SIX",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "FIVE",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "FOUR",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "THREE",
+        "pointValue": 0
+      },
+      {
+        "suit": "DIAMONDS",
+        "rank": "TWO",
+        "pointValue": 0
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "ACE",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "KING",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "QUEEN",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "JACK",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "TEN",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "NINE",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "EIGHT",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "SEVEN",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "SIX",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "FIVE",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "FOUR",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "THREE",
+        "pointValue": 1
+      },
+      {
+        "suit": "HEARTS",
+        "rank": "TWO",
+        "pointValue": 1
+      },
+      {
+        "suit": "SPADES",
+        "rank": "ACE",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "KING",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "QUEEN",
+        "pointValue": 13
+      },
+      {
+        "suit": "SPADES",
+        "rank": "JACK",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "TEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "NINE",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "EIGHT",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "SEVEN",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "SIX",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "FIVE",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "FOUR",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "THREE",
+        "pointValue": 0
+      },
+      {
+        "suit": "SPADES",
+        "rank": "TWO",
+        "pointValue": 0
+      }
+    ]
+  },
+  "bid": null,
+  "teams": [
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ]
+  ],
+  "ascending_ordering": true,
+  "can_view_previous_trick": true,
+  "initialHandSize": 13,
+  "minimumHandSize": 0,
+  "rules": [
+    {
+      "name": "leadingCardForEachTrick",
+      "data": "trick"
+    },
+    {
+      "name": "nextLegalCardMode",
+      "data": "trick"
+    },
+    {
+      "name": "trumpPickingMode",
+      "data": "fixed"
+    },
+    {
+      "name": "trumpSuit",
+      "data": "HEARTS"
+    },
+    {
+      "name": "calculateScore",
+      "data": "bridge"
+    },
+    {
+      "name": "trickWinner",
+      "data": "standard"
+    },
+    {
+      "name": "tieBreaker",
+      "data": "anotherHand"
+    },
+    {
+      "name": "trickLeader",
+      "data": "prevWinner"
+    },
+    {
+      "name": "validLeadingCardFirstTrick",
+      "data": "fixed"
+    },
+    {
+      "name": "validLeadingCardFirstTrickCard",
+      "data": "TWO CLUBS"
+    },
+    {
+      "name": "gameEnd",
+      "data": "handsPlayed"
+    },
+    {
+      "name": "gameEndValue",
+      "data": "1"
+    },
+    {
+      "name": "handEnd",
+      "data": "outOfCards"
+    },
+    {
+      "name": "scoring",
+      "data": "golf"
+    },
+    {"name" : "sessionEnd", "data" : "gamesPlayed"},
+    {"name" : "sessionEndValue", "data" : 1}
+  ]
+}

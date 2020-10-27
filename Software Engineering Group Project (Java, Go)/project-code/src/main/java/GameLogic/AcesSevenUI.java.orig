@@ -1,0 +1,130 @@
+package GameLogic;
+
+import GameLogic.Core.Game;
+import Network.GameInitiation.GameInitiation;
+import Network.GameInitiation.GameNetwork;
+import Network.GameInitiation.NetworkCreationException;
+import Network.GamePlay.NetworkGame;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
+import org.apache.commons.cli.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+/**
+ * An alternative main class that does not support multiple users.
+ */
+public class AcesSevenUI {
+	
+	public static void main(String[] args) {
+		
+		//Configure command line options
+		Options options = new Options();
+		options.addOption("p", "localport", true, "The port opened on this machine to listen for connections.");
+		options.addOption("e", "externalport", true, "Port on external machine to connect to.");
+		
+		try {
+			//Parse command line arguments
+			CommandLineParser parser = new DefaultParser();
+			CommandLine cmd = parser.parse(options, args);
+			
+			//Extract the gamefile
+			List<String> argsList = cmd.getArgList();
+			String gameFileName = argsList.get(0);
+			
+			//Is the game run over a network?
+			boolean isNetworked = cmd.hasOption("p") && cmd.hasOption("e");
+			
+			Game game = new Game();
+			
+			if (isNetworked) {
+				//Networked game.
+				//Prepare to start the game.
+				int randomSeed = 4;
+				int maxPlayers = AcesSeven.getMaxPlayers(gameFileName);
+				int portNumber = Integer.parseInt(cmd.getOptionValue("p"));
+				JsonObject gameFileJson = new Gson().fromJson(new JsonReader(new InputStreamReader(new FileInputStream(gameFileName))), JsonObject.class);
+				
+				//Initiate the game with the network.
+				GameInitiation gameInitiation = new GameInitiation();
+				GameNetwork network = gameInitiation.hostGame(portNumber, gameFileJson, maxPlayers, randomSeed);
+				
+				//Setup the gameplay to connect to network
+				NetworkGame networkGame = new NetworkGame(network);
+				
+				//Create GameState from file
+				GameFileLoader loader = new GameFileLoader();
+				Game.GameState gameState = loader.loadGameFromFile(gameFileName, networkGame);
+				
+<<<<<<< HEAD
+				//Start the game.
+				game.runGame(gameState, networkGame);
+=======
+				// Host a game or join a game.
+				if (cmd.hasOption("h")) {
+					//Prepare to start the game.
+					int randomSeed = 4;
+					int maxPlayers = AcesSeven.getMaxPlayers(gameFileName);
+					int portNumber = Integer.parseInt(cmd.getOptionValue("p"));
+					
+					//Initiate the game with the network.
+					GameInitiation gameInitiation = new GameInitiation();
+					GameNetwork network = gameInitiation.hostGame(portNumber, gameFileJson, maxPlayers, randomSeed, "CONNOR");
+					
+					networkGame = new NetworkGame(network);
+					
+					//Create GameState from file
+					GameFileLoader loader = new GameFileLoader();
+					Game.GameState gameState = loader.loadGameFromFile(gameFileName, networkGame);
+					
+					//Start the game.
+					game.runGame(gameState, networkGame);
+				} else if (cmd.hasOption("j")) {
+					//Prepare to start the game.
+					int randomSeed = 4;
+					int maxPlayers = AcesSeven.getMaxPlayers(gameFileName);
+					int portNumber = Integer.parseInt(cmd.getOptionValue("p"));
+					
+					//Initiate the game with the network.
+					GameInitiation gameInitiation = new GameInitiation();
+					GameNetwork network = gameInitiation.discoverGame("CONNOR", portNumber);
+					
+					networkGame = new NetworkGame(network);
+					
+					//Create GameState from file
+					GameFileLoader loader = new GameFileLoader();
+					Game.GameState gameState = loader.loadGameFromFile(gameFileName, networkGame);
+					
+					//Start the game.
+					game.runGame(gameState, networkGame);
+				}
+>>>>>>> cdo2-networking_integration_finish
+				
+			} else {
+				//Create GameState from file.
+				GameFileLoader loader = new GameFileLoader();
+				Game.GameState gameState = loader.loadGameFromFile(gameFileName, null);
+				
+				//Local game.
+				game.runGame(gameState, null);
+			}
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IndexOutOfBoundsException e) {
+			HelpFormatter helpFormatter = new HelpFormatter();
+			helpFormatter.printHelp("AcesSevenUI [gamefile]", options);
+		} catch (NetworkCreationException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.out.println("Could not find game file.");
+		}
+		
+		
+	}
+	
+}

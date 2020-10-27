@@ -1,0 +1,14 @@
+stages:
+  - build
+  - test
+image: maven:latest
+
+build_game_jar:
+  stage: build
+  script:
+    - "mvn package -Dmaven.test.skip=true"
+
+test_game_jar:
+  stage: test
+  script:
+    - "mvn test"
