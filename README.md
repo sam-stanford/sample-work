@@ -10,7 +10,7 @@ All of my code is well commented and there are intructions on how to build and r
 
 Some projects are single file submissions, including my lecture on data transmission (Data_Transmission_Presentation.mp4), my report on the UK's green energy supply chain security (Supply Chain Security Investigation.pdf), and my heuristic evaluation of Overleaf's LaTeX editor (UI Heuristic Evaluation.pdf).
 
-## Which projects should I look at?
+## Which projects should you look at?
 
 - If you've **only got time to look through one project**, I'd highly recommend looking through **Pub Sub System (Go)**. This project contains some of my best development work for university, complete with unit and integration tests, as well as a clean report.
 
